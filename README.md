@@ -1,56 +1,159 @@
-# 🏡 Property Dashboard (React + TypeScript + Vite)
-
-This project is a **Property Management Dashboard** built with **React, TypeScript, and Vite**.  
-It allows users to view, filter, and manage property reviews, ratings, and statuses in a clean and responsive UI.
-
-The dashboard provides an optimized way to fetch and display data with pagination, filtering, and toggle-based status updates (e.g., publish/unpublish reviews).
+Got it ✅
+Here’s a **professional README.md** for your **Flex Living Reviews API** (Node.js + Express + MongoDB). You can drop this into your GitHub repo directly.
 
 ---
 
-## 📸 Screenshots
+# 🏠 Flex Living Reviews API
 
-![Dashboard Overview](src/assets/Dashboard.png)
-![Mobile](src/assets/Mobile.png)
-
----
-
-## ✨ Features & Functionality
-
-- 📌 **Property Listing**: Displays property details including name, location, rating, and review count.
-- 🎚 **Toggle Review Status**: Publish/unpublish reviews with smooth toggle animation.
-- 🔎 **Filters & Search**:
-  - Filter by status, rating, sort order, etc.
-  - (Search box placeholder included, toast message shown since backend search is not implemented yet).
-- 📊 **Pagination**: Supports `itemsPerPage` parameter for dynamic data loading.
-- 🎨 **Responsive UI**: Works seamlessly across desktop and mobile devices.
-- 🚀 **Optimistic Updates**: UI immediately reflects toggle changes while syncing with the API.
-- ⚡ **Error Handling**: Reverts status in case of API failure and shows a toast notification.
+A **Node.js + Express + MongoDB** REST API that powers the **Flex Living Reviews Dashboard**.
+This service manages property reviews, approval status, and property details fetched from **Hostaway**.
 
 ---
 
-## 🛠️ Technologies Used
+## 🚀 Features
 
-- **React 18** (UI framework)
-- **TypeScript** (type safety)
-- **Vite** (fast bundler & dev server)
-- **TailwindCSS** (styling & responsiveness)
-- **Lucide Icons** (icons for ratings, reviews, etc.)
-- **React Toastify** (notifications & error handling)
+* Fetch all property reviews with property details
+* Approve / make reviews private (`show` toggle)
+* Pagination and filtering support
+* Built with **Express.js**, **MongoDB Atlas**, and **TypeScript (optional)**
+* Deployed on **Render**
 
 ---
 
-## 📂 Project Setup
+## 📡 API Endpoints
+
+### **1️⃣ Get All Reviews**
+
+```http
+GET https://the-flex-living-backend.onrender.com/api/reviews/hostaway
+```
+
+#### Response Example
+
+```json
+{
+  "status": "success",
+  "result": [
+    {
+      "property": {
+        "propertyId": 155613,
+        "listingName": "The Bromley Collection",
+        "mainImage": "https://hostaway-platform.s3...",
+        "location": {
+          "city": "London",
+          "country": "United Kingdom"
+        },
+        "propertyDetails": {
+          "personCapacity": 5,
+          "bedroomsNumber": 2,
+          "bathroomsNumber": 2,
+          "price": 400
+        }
+      },
+      "reviews": {
+        "id": 155613,
+        "type": "host-to-guest",
+        "status": "published",
+        "rating": 9,
+        "publicReview": "Nice apartment, but check-in was confusing.",
+        "guestName": "Emma Smith",
+        "submittedAt": "2022-08-21T22:45:14.000Z",
+        "channel": "Hostaway"
+      }
+    }
+  ]
+}
+```
+
+---
+
+### **2️⃣ Approve or Hide Review**
+
+```http
+PATCH https://the-flex-living-backend.onrender.com/api/reviews/:id/approve?show=false
+```
+
+* `:id` → review ID
+* `show=true` → publish review
+* `show=false` → hide (make private)
+
+#### Request Example
+
+```http
+PATCH /api/reviews/155615/approve?show=false
+```
+
+#### Response Example
+
+```json
+{
+  "status": "success",
+  "result": {
+    "id": 155615,
+    "guestName": "Olivia Brown",
+    "publicReview": "Cozy apartment, but could be cleaner.",
+    "rating": 6,
+    "status": "private",
+    "submittedAt": "2024-08-21T22:45:14.000Z",
+    "channel": "Hostaway"
+  }
+}
+```
+
+---
+
+## 🛠️ Tech Stack
+
+* **Backend Framework**: [Express.js](https://expressjs.com/)
+* **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas)
+* **Language**: JavaScript / TypeScript
+* **Hosting**: [Render](https://render.com/)
+
+---
+
+## ⚙️ Setup & Installation
+
+Clone repo and install dependencies:
 
 ```bash
-# Clone repository
-git clone https://github.com/sachinbagariaofficial/flex-living-admin.git
-
-# Install dependencies
+git clone https://github.com/sachinbagariaofficial/flex-living-backend.git
+cd flex-living-backend
 npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
 ```
+
+Create `.env` file:
+
+```env
+PORT=5000
+MONGO_URI=your-mongodb-atlas-uri
+```
+
+Run development server:
+
+```bash
+npm run dev
+```
+
+Build & run production:
+
+```bash
+npm run build
+npm start
+```
+
+---
+
+
+## 📊 Future Improvements
+
+* 🔍 Advanced filtering & search
+* 🛡️ JWT authentication for admin routes
+* 📈 Analytics endpoints
+
+---
+
+## 📜 License
+
+MIT License © 2025 \sachin
+
+---
